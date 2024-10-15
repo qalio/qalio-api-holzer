@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package holzer.v1;
+
+import "proto/v1/common/utils.proto";
+
+message AttendanceRecord {
+  string user_id = 1;
+  string timestamp = 2;
+  string status = 3; // e.g., "present", "absent"
+}
+
+message AttendanceRequest {
+  string organization_id = 1;
+  repeated AttendanceRecord records = 2;
+}
+
+message AttendanceResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+service HolzerService {
+  rpc RecordAttendance(AttendanceRequest) returns (AttendanceResponse);
+  rpc GetAttendanceReport(AttendanceRequest) returns (AttendanceResponse);
+}
